@@ -18,7 +18,7 @@ public class ExcelToSql {
     public static void main(String[] args) throws Exception {
         long begin = System.currentTimeMillis();
         //读取excel文件
-        Workbook book = new XSSFWorkbook("/Users/yxh/Desktop/用户表.xlsx");
+        Workbook book = new XSSFWorkbook("/Users/yxh/Desktop/yy.xlsx");
         Sheet table = book.getSheet("Sheet1");
         //生成sql文件
         File file = new File("用户角色初始化脚本.sql");
@@ -29,6 +29,9 @@ public class ExcelToSql {
         for (int i = 1; i < table.getLastRowNum() + 1; i++) {
             //当前行数据
             Row row = table.getRow(i);
+            if (row == null) {
+                break;
+            }
             //先删除
             String delete = String.format("delete from user where user_id ='%s';", row.getCell(0));
             //再添加
